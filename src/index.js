@@ -37,8 +37,23 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
-function decode(expr) {
-    // write your solution here
+let numberTable = {'**********': ' '};
+
+function decode(expr) { 
+  let result = '';
+  for (key in MORSE_TABLE) {
+    numberTable[codeToNumber(key)] = MORSE_TABLE[key];
+  } 
+  for(i = 0; i < expr.length; i += 10) {
+    let char = expr.substring(i, i + 10);
+    result += numberTable[char];
+  }
+  return result;
+}
+
+function codeToNumber(str) {
+  let numberStr = str.replace(/\./g, '10').replace(/\-/g, '11').padStart(10, '0');
+  return numberStr;
 }
 
 module.exports = {
